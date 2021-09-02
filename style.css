@@ -9,6 +9,7 @@ nav {
 }
 
 main {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +21,12 @@ main {
   height: 400px;
   background-color: #000;
   border: 4px solid #ccc;
+}
+
+#canvas {
+  width: 600px;
+  height: 400px;
+  position: absolute;
 }
 
 .controls {
