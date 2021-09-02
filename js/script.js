@@ -8,6 +8,7 @@ let stopBtn = document.querySelector("#stop");
 let streamObject = null;
 let MODEL_URL = "./../models";
 let faceDetectionInterval = null;
+let isDetectionRunning = false;
 let isModelLoaded = false;
 
 Promise.all([
@@ -52,15 +53,22 @@ async function detectFaces() {
 }
 
 async function startDetectingFaces() {
+  isDetectionRunning = true;
   faceDetectionInterval = setInterval(async () => {
-    if (isModelLoaded) {
+    if (isModelLoaded && isDetectionRunning) {
       await detectFaces();
     }
-  }, 100);
+  }, 1000);
 }
 
 function stopDetectingFaces() {
   clearInterval(faceDetectionInterval);
+
+  isDetectionRunning = false;
+  // clear the canvas
+  canvasEl
+  .getContext("2d")
+  .clearRect(0, 0, canvasEl.width, canvasEl.height);
 }
 
 videoEl.addEventListener("play", () => {
@@ -102,7 +110,4 @@ stopBtn.addEventListener("click", () => {
   console.log("video stopped");
 
   stopDetectingFaces();
-
-  // clear the canvas
-  canvasEl.getContext("2d").clearRect(0, 0, canvasEl.width, canvasEl.height);
 });
