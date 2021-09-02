@@ -3,10 +3,27 @@ let videoEl = document.querySelector("#video");
 let startBtn = document.querySelector("#start");
 let stopBtn = document.querySelector("#stop");
 
-console.log(videoEl);
-
 // global variables
 let streamObject = null;
+let MODEL_URL = "./../models";
+
+Promise.all([
+  // face detection models
+  faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+  faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
+
+  // face landmark model
+  faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+
+  // face recognition model
+  faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+])
+  .then(() => {
+    console.log("Models loaded successfully");
+  })
+  .catch(() => {
+    console.log("Error: Models failed to load");
+  });
 
 // start webCam
 function startCamera() {
