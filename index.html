@@ -18,8 +18,21 @@
     <title>Proctored Test</title>
   </head>
   <body>
+    <nav class="navbar fixed-top">
+      <div class="container justify-content-center">
+        <h2>Proctored Test</h2>
+      </div>
+    </nav>
 
-    
+    <main>
+      <video id="video" autoplay muted></video>
+    </main>
+
+    <div class="controls fixed-bottom">
+      <button id="start" class="btn btn-secondary m-3">Start Web Cam</button>
+      <button id="stop" class="btn btn-secondary m-3">Stop Web Cam</button>
+    </div>
+
     <script src="./js/face-api.min.js"></script>
     <script src="./js/script.js"></script>
   </body>
