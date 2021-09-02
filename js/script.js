@@ -8,6 +8,7 @@ let stopBtn = document.querySelector("#stop");
 let streamObject = null;
 let MODEL_URL = "./../models";
 let faceDetectionInterval = null;
+let isModelLoaded = false;
 
 Promise.all([
   // face detection models
@@ -21,6 +22,7 @@ Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
 ])
   .then(() => {
+    isModelLoaded = true;
     console.log("Models loaded successfully");
   })
   .catch(() => {
@@ -51,8 +53,10 @@ async function detectFaces() {
 
 async function startDetectingFaces() {
   faceDetectionInterval = setInterval(async () => {
-    await detectFaces();
-  }, 1000);
+    if (isModelLoaded) {
+      await detectFaces();
+    }
+  }, 100);
 }
 
 function stopDetectingFaces() {
